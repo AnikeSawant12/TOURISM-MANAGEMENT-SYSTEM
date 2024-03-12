@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% block body %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Shop Item - Start Bootstrap Template</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <!-- Bootstrap icons-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="{% static 'css/styles.css' %}" rel="stylesheet" />
+        <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.css' %}">
+    </head>
+    <body>
+        
+        <!-- Product section-->
+        <section class="py-5">
+            <div class="container px-4 px-lg-5 my-5">
+                {% for trip in object_list %}
+                <div class="row gx-4 gx-lg-5 align-items-center">
+                    <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="{{trip.photel.shotelimg.url}}" alt="..." /></div>
+                    <div class="col-md-6">
+                        <div class="small mb-1 fw-bolder">Hotel Details</div>
+                        <h4 class="fw-bolder">{{trip.photel.shotelname | title}}</h4>
+                        <div class="fs-5 mb-5">
+                            <span class="fw-bolder">{{trip.photel.shoteltype | title}}</span>
+                        </div>
+                        <p class="lead">{{trip.photel.sdesc}}</p>
+                        
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+         <!-- Product section-->
+            <div class="container px-4 px-lg-5 my-5">
+                {% for dest in object_list %}
+                <div class="row gx-4 gx-lg-5 align-items-center">
+                    <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="{{dest.plocationimg.url}}" alt="..." /></div>
+                    <div class="col-md-6">
+                        <div class="small mb-1 fw-bolder">Destination Details</div>
+                        <h4 class="fw-bolder">{{dest.plocation | title}}</h4>
+                        <div class="fs-5 mb-1">
+                            <h6>Days : {{dest.pdays}}</h6>
+                            <h6>Nights : {{dest.pnights}}</h6>
+                        </div>
+                        <div class="fs-5 mb-1">
+                            <h6>From Date : {{dest.pfrom_date}}</h6>
+                            <h6>To Date : {{dest.pto_date}}</h6>
+                        </div>
+                        <div class="small mt-1 fw-bolder">Day 1 : {{dest.pday1 | title}}</div>
+                        <b class="text-secondary">{{dest.pday1_desc}}</b>
+                        <div class="small mt-1 fw-bolder">Day 2 : {{dest.pday2 | title}}</div>
+                        <b class="text-secondary">{{dest.pday2_desc}}</b>
+                        <div class="small mt-1 fw-bolder">Day 3 : {{dest.pday3 | title}}</div>
+                        <b class="text-secondary">{{dest.pday3_desc}}</b>
+                        <div class="small mt-1 fw-bolder">Day 4 : {{dest.pday4 | title}}</div>
+                        <b class="text-secondary">{{dest.pday4_desc}}</b>
+                        <div class="small mt-1 fw-bolder">Day 5 : {{dest.pday5 | title}}</div>
+                        <b class="text-secondary">{{dest.pday5_desc}}</b>
+                        <div class="small mt-1 fw-bolder">Day 6 : {{dest.pday6 | title}}</div>
+                        <b class="text-secondary">{{dest.pday6_desc}}</b>
+                        
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+      
+    </body>
+</html>
+{% endblock %}

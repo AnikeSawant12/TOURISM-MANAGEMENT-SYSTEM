@@ -1,0 +1,66 @@
+{% extends 'header.html' %}
+{% block body %}
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>FruitSuppliers</title>
+            
+        <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+          
+          <!-- Custom styles for this template-->
+        <link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet">
+          
+        <style>
+         input[type=password] {
+    display: block;
+    width: 100%;
+    height: calc(1.5em + .75rem + 2px);
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #6e707e;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #d1d3e2;
+    border-radius: .35rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+        </style>
+        </head>
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-xl-10 col-lg-12 col-md-9">
+                <div class="card o-hidden border-0 shadow-lg my-5">
+                      <div class="card-body p-0">
+                <!-- Nested Row within Card Body -->
+                <div class="row">
+                    <div class="col-lg-3"></div>
+                  <div class="col-lg-6">
+                    <div class="p-5">
+                      <div class="text-center">
+                        <h1 class="h4 text-gray-900 mb-4">Chanage Password</h1>
+                      </div>
+                    
+                      <form action="" method="POST" novalidate>
+                        {% csrf_token %}
+                        {{form.as_p}}
+                        <input type="submit" value="Save" class="btn btn-primary btn-block"/>
+                      </form>
+                      <a href="{% url 'dashboard' %}">Cancel</a>
+                        <hr>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+</body>
+</html>
+{% endblock %}

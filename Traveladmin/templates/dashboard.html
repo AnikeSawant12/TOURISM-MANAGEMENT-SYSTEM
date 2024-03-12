@@ -1,0 +1,180 @@
+{% extends 'header.html' %}
+{% block body %}
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+	<link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet">
+	<link href="{% static 'css/other.css' %}" rel="stylesheet">
+
+</head>
+<body>
+	<body id="page-top">
+
+		<!-- Page Wrapper -->
+		<div id="wrapper">
+	  
+		 
+		  <div id="content-wrapper" class="d-flex flex-column">
+	  
+			<!-- Main Content -->
+			<div id="content">
+	  
+	  
+			
+			  <div class="container-fluid">
+				<div class="row mt-4">
+					<div class="col-xl-3 col-md-6 mb-4">
+						<div class="card border-left-info shadow h-100 py-2">
+						  <div class="card-body">
+							<div class="row no-gutters align-items-center">
+							  <div class="col mr-2">
+								<div class="text-xs font-weight-bold text-info text-uppercase mb-1">Total Purchase Item</div>
+								<div class="h5 mb-0 font-weight-bold text-gray-800">
+									{% if totalpurchaseitem %}
+										{{totalpurchaseitem}}
+									{% else %}
+										0
+									{% endif %}		
+								</div>
+							  </div>
+							  
+							</div>
+						  </div>
+						</div>
+					  </div>
+
+					<div class="col-xl-3 col-md-6 mb-4">
+						<div class="card border-left-info shadow h-100 py-2">
+						<div class="card-body">
+							<div class="row no-gutters align-items-center">
+							<div class="col mr-2">
+								<div class="text-xs font-weight-bold text-info text-uppercase mb-1">Total Party</div>
+								<div class="h5 mb-0 font-weight-bold text-gray-800">{{totalparty}}</div>
+							</div>
+							<div class="col-auto">
+								<i class="fa fa-first-order  fa-2x text-gray-300"></i>
+							</div>
+							<div class="col-auto">
+								<i class="fas fa-users fa-2x text-gray-300"></i>
+							  </div>
+							</div>
+							
+						</div>
+						</div>
+					</div>
+					<div class="col-xl-3 col-md-6 mb-4">
+						<div class="card border-left-info shadow h-100 py-2">
+						<div class="card-body">
+							<div class="row no-gutters align-items-center">
+							<div class="col mr-2">
+								<div class="text-xs font-weight-bold text-info text-uppercase mb-1">Total Products</div>
+								<div class="h5 mb-0 font-weight-bold text-gray-800">{{totalproducts}}</div>
+							</div>
+							<div class="col-auto">
+								<i class="fa fa-cutlery fa-2x text-gray-300"></i>
+							</div>
+							</div>
+						</div>
+						</div>
+					</div>
+
+					<div class="col-xl-3 col-md-6 mb-4">
+						<div class="card border-left-info shadow h-100 py-2">
+						<div class="card-body">
+							<div class="row no-gutters align-items-center">
+							<div class="col mr-2">
+								<div class="text-xs font-weight-bold text-info text-uppercase mb-1">Stock Item</div>
+								<div class="h5 mb-0 font-weight-bold text-gray-800">{{totalstockitem}}</div>
+							</div>
+							<div class="col-auto">
+								<i class="fas fa-calendar fa-2x text-gray-300"></i>
+							</div>
+							</div>
+						</div>
+						</div>
+					</div>
+				</div>
+				 
+				
+				<!-- Content Row -->
+				<div class="row">
+	  
+				 {% for i in remainingstock %}
+				  <div class="col-xl-3 col-md-6 mb-4">
+					{% if i.remainingstock > 100 %} 
+						<div class="card border-left-success shadow h-100 py-2">
+					{% else %}
+						<div class="card border-left-danger shadow h-100 py-2">	
+					{% endif %}			
+					  <div class="card-body">
+						<div class="row no-gutters align-items-center">
+						  <div class="col mr-2">
+							<div class="text-xl font-weight-bold text-uppercase mb-1 text-info">{{i.item_name}}</div>
+							{% if i.qty > 100 %}
+							<div class="mb-0 font-weight-bold text-success">QTY : <span class="h5 font-weight-bold">{{i.qty}}</span></div>
+							{% endif %}
+
+							{% if i.qty <= 100 %}
+							<div class="mb-0 font-weight-bold text-danger blink">QTY : <span class="h5 font-weight-bold">{{i.qty}}</span></div>
+							{% endif %}
+
+						  </div>
+						  <div class="col-auto">
+							<i class="fas fa-shopping-cart fa-2x text-gray-300"></i>
+						  </div>
+						</div>
+					  </div>
+					</div>					
+				  </div>
+				  {% endfor %}
+
+				</div>	
+			  </div>  
+			</div>	
+		  </div>		
+		</div>
+	
+		<a class="scroll-to-top rounded" href="#page-top">
+		  <i class="fas fa-angle-up"></i>
+		</a>
+	  
+		<!-- Logout Modal-->
+		<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		  <div class="modal-dialog" role="document">
+			<div class="modal-content">
+			  <div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+				<button class="close" type="button" data-dismiss="modal" aria-label="Close">
+				  <span aria-hidden="true">×</span>
+				</button>
+			  </div>
+			  <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+			  <div class="modal-footer">
+				<button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+				<a class="btn btn-primary" href="login.html">Logout</a>
+			  </div>
+			</div>
+		  </div>
+		</div>	  
+	  </body>
+	<script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+
+	<script>
+	function blink_text() {
+		$('.blink').fadeOut(500);
+		$('.blink').fadeIn(500);
+	}
+	setInterval(blink_text, 1000);
+
+	function blink_sale_item() {
+		$('.blink_sale_item').fadeOut(500);
+		$('.blink_sale_item').fadeIn(500);
+	}
+	setInterval(blink_sale_item, 1000);
+	</script>
+</body>
+</html>
+{% endblock %}

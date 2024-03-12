@@ -1,0 +1,177 @@
+{% extends 'base.html' %}
+{% block body %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Shop Item - Start Bootstrap Template</title>
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <!-- Bootstrap icons-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.css' %}">
+</head>
+<body>
+    <div class="container">
+        <div class="py-5 text-center">
+            <h2>Trip Details form</h2>
+        </div>
+
+          <div class="row">
+            <div class="col-md-4 order-md-2 mb-4">
+              <h4 class="d-flex justify-content-between align-items-center mb-3">
+                <span class="text-muted">Destination</span>
+                <span class="badge badge-secondary badge-pill">3</span>
+              </h4>
+              <ul class="list-group mb-3">
+                {% for dest in object_list %}
+                <li class="list-group-item d-flex justify-content-between lh-condensed">
+                  <div>
+                    <img class="card-img-top mb-5 mb-md-0" src="{{dest.plocationimg.url}}" alt="..." />
+                     <h6 class="my-0 mt-2">Location : {{dest.plocation | title}}</h6>
+                     <h6 class="my-0 mt-2">{{dest.pdays}} Days tour</h6>
+                  </div>          
+                </li> 
+                {% endfor %}     
+              </ul>
+            </div>
+
+            <div class="col-md-8 order-md-1">
+              <h4 class="mb-3">Billing address</h4>
+              <form method="post" action="{% url 'saveTrip' %}">
+                {% csrf_token %}
+                  <div class="mb-3">
+                    <label for="lastName">Full Name</label>
+                    <input type="text" class="form-control" id="fullname" name="fullname" value="{{request.user.cfname|title}}" readonly>                    
+                  </div>
+               
+                  {% for i in object_list %}
+                  <div class="row">
+                  <div class="col-md-5 mb-3">
+                    <label for="lastName">From Date</label>
+                    <input type="text" class="form-control" id="from_date" name="from_date" value="{{i.pfrom_date | date:'Y-m-d'}}" readonly>
+                  </div>
+                  <div class="col-md-4 mb-3">
+                    <label for="lastName">To Date</label>
+                    <input type="text" class="form-control" id="to_date" name="to_date" value="{{i.pto_date | date:'Y-m-d'}}" readonly>
+                  </div>
+                </div>
+                {% endfor %}
+
+                 {% for i in object_list %}
+                   <div class="row">
+                  <div class="col-md-5 mb-3">
+                    <label>Trip price</label>
+                    <input type="text" class="form-control" id="tripprice" name="tripprice" value="{{i.pprice}}" readonly>
+                  </div>
+                  <div class="col-md-4 mb-3">
+                    <label>No of person</label>
+                    <input type="number" class="form-control" oninput="myFunction()" name="person" id="person" placeholder="Enter Person" required min="1" max="10">
+                  </div>
+                  <div class="col-md-3 mb-3">
+                    <label>Total</label>
+                    <input type="text" class="form-control" id="totalprice" name="totalprice" readonly>
+                   
+                  </div>
+                </div>
+                <input type="hidden" name="uniqueslug" id="uniqueslug" value="{{i.slug}}">
+                {% endfor %}
+
+                <div class="mb-3">
+                  <label for="username">No of Children</label>
+                  <div class="input-group">
+                    <input type="number" class="form-control" id="children" name="children" placeholder="Enter Children" required min="0" max="5">
+                  </div>
+                </div>
+
+                <div class="mb-3">
+                  <label for="username">Enter Paid Amount</label>
+                  <div class="input-group">
+                    <input type="number" class="form-control" id="paidamount" name="paidamount" placeholder="Enter Paid Amount" required min="1">
+                  </div>
+                </div>
+
+              
+                <h4 class="mb-3">Payment</h4>
+
+                <div class="d-block my-3">
+                  <div class="custom-control custom-radio">
+                    <input id="credit" name="paymentMethod" type="radio" class="custom-control-input" checked required value="credit">
+                    <label class="custom-control-label" for="credit">Credit card</label>
+                  </div>
+                  <div class="custom-control custom-radio">
+                    <input id="debit" name="paymentMethod" type="radio" class="custom-control-input" required value="debit">
+                    <label class="custom-control-label" for="debit">Debit card</label>
+                  </div>
+                  <div class="custom-control custom-radio">
+                    <input id="paypal" name="paymentMethod" type="radio" class="custom-control-input" required value="paypal">
+                    <label class="custom-control-label" for="paypal">PayPal</label>
+                  </div>
+                </div>
+                
+                <!--<div class="row">
+                  <div class="col-md-6 mb-3">
+                    <label for="cc-name">Name on card</label>
+                    <input type="text" class="form-control" id="cc-name" placeholder="" required>
+                    <small class="text-muted">Full name as displayed on card</small>
+                    <div class="invalid-feedback">
+                      Name on card is required
+                    </div>
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <label for="cc-number">Credit card number</label>
+                    <input type="text" class="form-control" id="cc-number" placeholder="" required>
+                    <div class="invalid-feedback">
+                      Credit card number is required
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-3 mb-3">
+                    <label for="cc-expiration">Expiration</label>
+                    <input type="text" class="form-control" id="cc-expiration" placeholder="" required>
+                    <div class="invalid-feedback">
+                      Expiration date required
+                    </div>
+                  </div>
+                  <div class="col-md-3 mb-3">
+                    <label for="cc-cvv">CVV</label>
+                    <input type="text" class="form-control" id="cc-cvv" placeholder="" required>
+                    <div class="invalid-feedback">
+                      Security code required
+                    </div>
+                  </div>
+                </div>-->
+               
+                <button class="btn btn-success" type="submit" href="{% url 'showTrips' %}">Book Now</button>
+                 <hr class="mb-4">
+              </form>
+            </div>
+          </div>
+      </div>  
+
+      <script>
+    function myFunction() {
+        var person = document.getElementById("person").value;
+        var tripprice = document.getElementById("tripprice").value;
+        var total = parseFloat(tripprice) * parseInt(person);
+        document.getElementById("totalprice").value = person *  tripprice;
+        
+    }
+</script> 
+        <script src="{% static 'js/popper.min.js' %}"></script>
+        <script src="{% static 'js/bootstrap.min.js' %}" ></script>
+        <script src="{% static 'js/jquery.min.js' %}" ></script>
+
+ 
+    </body>
+</html>
+{% endblock %}
+ 

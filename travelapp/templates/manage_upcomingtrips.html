@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block body %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Shop Homepage - Start Bootstrap Template</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <!-- Bootstrap icons-->
+        <link href="{% static 'css/styles.css' %}" rel="stylesheet" />
+        <link href="{% static 'css/bootstrap.min.css '%}" rel="stylesheet">
+
+    </head>
+    <body>
+<div class="container">
+         <div class="section-title row text-center mt-4">
+                <div class="col-md-8 offset-md-2">
+                    <h3>Destination</h3>
+                    <p class="lead"></p>
+                </div>
+            </div>
+        <!-- Section-->
+        <section class="py-5">
+            <div class="container px-4 px-lg-5 mt-5">
+                <div class="row justify-content-center">
+                    {% for i in object_list %}
+                        <div class="col-md-4 mb-5">                           
+                            <div class="card">
+                                <!-- Product image-->
+                                <img src="{{i.plocationimg.url}}" class="card-img-top" height="250">
+                                    <!-- Product details-->
+                                <div class="card-body p-4">
+                                    <div class="text-center">
+                                        <!-- Product name-->
+                                        <h5 class="fw-bolder">{{i.plocation | title}}</h5>
+                                        <!-- Product price-->
+                                       <h6>{{i.pprice}} / Person</h6>
+                                       <h6>{{i.pdays}} Days Tour</h6>
+                                    </div>
+                                    <div class="row mt-2">
+                                        <div class="col-md-6"><a href="{% url 'tripDetailsView' i.slug %}"  class="btn btn-outline-dark mt-auto">View Details</a></div>   
+                                        <div class="col-md-6"><a href="{% url 'bookNow' i.slug %}"  class="btn btn-outline-dark mt-auto">Book Now</a></div>                         
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                       
+                    {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+       
+</div> 
+      
+    </body>
+</html>
+{% endblock %}

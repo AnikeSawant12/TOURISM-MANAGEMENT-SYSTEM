@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+{% block body %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Shop Item - Start Bootstrap Template</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <!-- Bootstrap icons-->
+       
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="{% static 'css/styles.css' %}" rel="stylesheet" />
+        <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.css' %}">
+    </head>
+    <body>
+
+<div class="container">
+	 <div class="section-title row text-center mt-4">
+                <div class="col-md-8 offset-md-2">
+                    <h3>My Trips</h3>
+                    
+                </div>
+            </div>
+      		 {% if messages %}
+                {% for message in messages %}
+                  <div class="alert alert-dismissible alert-success">
+                    <button type="button" class="close" data-dismiss="alert">
+                    ×
+                    </button>
+                    <strong>{{message}}<strong>
+                  </div>
+               {% endfor %}
+              {% endif %}
+			<section class="py-5">
+            	<div class="container px-4 px-lg-5 mt-1">
+            		{% for i in tripreservation %}
+
+	                	<div class="row justify-content-center">
+	                        <div class="col-md-12 mb-1">                           
+	                            <div class="card shadow p-3 mb-1 bg-white rounded">             
+	                                <div class="card-body p-4">
+	                                	<div class="col-3 fw-bolder text-secondary">
+	                                	Trip Status :
+	                                	{% if i.btrip_status == 1 %}
+	                                		<span class="text-success">Enquiry</span>
+	                                	{% endif %}
+	                                	{% if i.btrip_status == 2 %}
+	                                		<span class="text-danger">In Process ...</span>
+	                                	{% endif %}
+	                                	</div>
+	                                	<hr>
+	                                	<div class="row">
+										  <div class="col-3 fw-bolder text-secondary">Trip : {{forloop.counter}}</div>
+										  <div class="col-3 fw-bolder text-secondary">Name : {{i.cid.cfname | title}}</div>
+										  <div class="col-3 fw-bolder text-secondary">Mob : {{i.cid.cmobileno}}</div>
+										  <div class="col-3 fw-bolder text-secondary mb-2">Email : {{i.cid.cemail}}</div>
+										 <hr>
+										 <div class="col-3 mt-3 fw-bolder text-secondary">Price : {{i.btripprice}}</div>
+										  <div class="col-3 mt-3 fw-bolder text-secondary">Person : {{i.bperson}}</div>
+										  <div class="col-3 mt-3 fw-bolder text-secondary">Total Bill : {{i.btotalprice}}</div>
+										  <div class="col-3 mt-3 fw-bolder text-secondary mb-3">Children : {{i.bchildren}}</div>
+										  <hr>
+										  <div class="col-3 mt-3 fw-bolder text-secondary mb-3">Address : {{i.cid.caddress1 | title}}</div>
+										  
+										  <div class="col-4 mt-3 fw-bolder text-secondary mb-3">Date : {{i.bfrom_date | date:'Y-m-d'}} - {{i.bto_date | date:'Y-m-d'}}</div>
+										  <div class="col-3"></div>
+										  <div class="col-3"></div>
+										  <hr>
+										  
+										  <div class="col-3 mt-3 fw-bolder text-secondary mb-3">Payment Details</div>
+										  <div class="col-3 mt-3 fw-bolder text-secondary">Total Payment : {{i.btotalprice}}</div>
+
+										  <div class="col-3"></div>
+										    <div class="col-3"></div>
+										 
+										  <div class="col-3"></div>		   
+										  <div class="col-3"></div>
+
+										  <table class="table table-bordered">
+										  	<tr class="text-center">
+										  		<th>Paid</th>
+										  		<th>Payment Mode</th>
+										  	</tr>
+										  	{% for i in reservationpayment %}
+											  	<tr class="text-center">
+											  		<td class="text-success fw-bolder">{{i.paid_amount}}</td>
+											  		<td class="text-success fw-bolder">{{i.paymentmethod | title}}</td>
+											  	</tr>
+										  	 {% endfor %} 
+										  </table>
+
+										</div>
+	                                </div>
+	                            </div>
+	                        </div>
+	                    </div>
+                    {% endfor %}
+                </div>
+        	</section>
+  		</div>
+	</div>			
+</div>
+
+         
+    </body>
+</html>
+{% endblock %}

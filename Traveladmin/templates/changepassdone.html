@@ -1,0 +1,26 @@
+{% extends 'header.html' %}
+{% block body %}
+{% load static %}
+<html>
+      <title>FruitSuppliers</title>
+           <head>
+        <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+          
+          <!-- Custom styles for this template-->
+        <link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet">
+      </head> 
+      <body class="bg-light">
+        <div class="container">
+      <nav class="navbar navbar-expand-lg navbar-light bg-primary">
+        
+        <a class="navbar-brand text-white">Password change successfully</a>  
+      </nav>
+      <span class="nav-link active">
+        <a  href="{% url 'dashboard' %}">Back Dashboard</a>
+      </span>  
+      </div>
+      <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    </body>
+</html>
+{% endblock %}

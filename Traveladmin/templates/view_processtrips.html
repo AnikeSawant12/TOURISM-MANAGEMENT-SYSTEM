@@ -1,0 +1,91 @@
+{% extends 'header.html' %}
+{% block body %}
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+
+	<link href="{% static 'vendor/datatables/dataTables.bootstrap4.min.css' %}" rel="stylesheet">
+	<link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet">
+  
+</head>
+<body>
+<!-- Begin Page Content -->
+<div class="container-fluid mt-4">
+  <div class="page-header">      
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Dashboard</a></li>
+      <li class="breadcrumb-item active">View New trips</li>
+    </ol>
+    </div>
+      
+       <!-- DataTales Example -->
+          <div class="card shadow mb-4">
+            <div class="card-header py-3">
+              <h6 class="m-0 font-weight-bold text-primary">New Trips | Process Trips | Success Trips</h6>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+                      <th>Location</th>
+                      <th>Name</th>
+                      <th>Date</th>
+                      <th>Price</th>
+                      <th>Childrens</th>
+                      <th>Person</th>
+                      <th>Payment Mode</th>
+                      <th>Total</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  
+                  <tbody>
+                    {% for i in object_list %}
+                    <tr>
+                      <td>{{i.trip_id.location | title}} <span class="badge badge-success badge-counter blink">New</span></td>
+                      <td>{{i.fullname | title}}</td>
+                      <td>{{i.from_date}}-{{i.to_date}}</td>
+                      <td>{{i.tripprice}}</td>
+                      <td>{{i.children}}</td>
+                      <td>{{i.person}}</td>
+                      <td>{{i.paymentmethod}}</td>
+                      <td>{{i.totalprice}}</td>
+                      <td><a href="{% url 'inProcess' i.slug %}" class="btn btn-sm btn-warning" onclick="return confirm('{{i.fullname | title}} trips move to process mode')"></i>Process</a></td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+  </div>
+<script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+
+    <script>
+  function blink_text() {
+    $('.blink').fadeOut(500);
+    $('.blink').fadeIn(500);
+  }
+  setInterval(blink_text, 1000);
+
+  function blink_sale_item() {
+    $('.blink_sale_item').fadeOut(500);
+    $('.blink_sale_item').fadeIn(500);
+  }
+  setInterval(blink_sale_item, 1000);
+  </script>
+{% endblock %}
+</body>
+</html>
+
+ 
+
+
+
+ 

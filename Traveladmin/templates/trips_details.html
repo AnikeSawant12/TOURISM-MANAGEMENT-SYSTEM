@@ -1,0 +1,137 @@
+{% extends 'header.html' %}
+{% block body %}
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+
+	<link href="{% static 'vendor/datatables/dataTables.bootstrap4.min.css' %}" rel="stylesheet">
+	<link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet">
+  
+</head>
+<body>
+<!-- Begin Page Content -->
+        <div class="container-fluid mt-4">
+          <div class="page-header">      
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Dashboard</a></li>
+            <li class="breadcrumb-item active">Trip Details</li>
+          </ol>
+        </div>
+          <div class="card shadow mb-4">
+            <div class="card-header text-center">            	
+              <span class="font-weight-bold text-primary">Show Trips Details</span>            
+            </div>    
+                   
+            <div class="card-body">
+              <div class="card">
+                 {% for trip in object_list %}
+                <div class="card-body">
+                  <h5 class="card-title"><i class="fa fa-map-marker mr-2 text-danger"></i>Location Details</h5>
+                   <div class="row">
+                  <div class="col-lg-4">
+                    <img class="img-thumbnail" src="{{trip.plocationimg.url}}" alt="barcode" height="150" > 
+                  </div>
+                  <div class="col-lg-4">
+                   <h5 class="text-info">Location : {{trip.plocation | upper}}</h5>
+                   <h5 class="text-info">Days : {{trip.pdays}}</h5>
+                   <h5 class="text-info">Nights : {{trip.pnights}}</h5>
+                   <h5 class="text-info">Package : Rs. {{trip.pprice}}</h5>
+                   <h5 class="text-info">From Date : {{trip.pfrom_date}}</h5>
+                   <h5 class="text-info">To Date : {{trip.pto_date}}</h5>
+                  </div>  
+                </div>
+                {% endfor %} 
+              </div>                       
+            </div>            
+          </div>
+          <div class="card-body">
+              <div class="card">
+                 {% for hotels in object_list %}
+                <div class="card-body">
+                  <h5 class="card-title"><i class="fa fa-hotel mr-2 text-danger"></i>Hotel Details</h5>
+                   <div class="row">
+                  <div class="col-lg-4">
+                    <img class="img-thumbnail" src="{{hotels.photel.shotelimg.url}}" alt="barcode" height="150" > 
+                  </div>
+                  <div class="col-lg-4">
+                   <h5 class="text-info">Hotel Name : {{hotels.photel.shotelname | upper}}</h5>
+                   <h5 class="text-info">Hotel Type : {{hotels.photel.shoteltype}}</h5>
+                  </div>  
+                </div>
+                {% endfor %} 
+              </div>                       
+            </div>            
+          </div>
+
+          <div class="card-body">
+              <div class="card">
+                 {% for i in object_list %}
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-lg-4">
+                      <h6 class="card-title font-weight-bold"><i class="fa fa-calendar mr-2 text-danger"></i> Day 1 :  {{i.pday1 | title}}</h6>
+                    </div>
+                    <div class="col-lg-8">
+                      <strong class="text-info">{{i.pday1_desc}}</strong> 
+                      <hr>                  
+                  </div>  
+
+                  <div class="col-lg-4">
+                      <h6 class="card-title font-weight-bold"><i class="fa fa-calendar mr-2 text-danger"></i> Day 2 :  {{i.pday2 | title}}</h6>
+                    </div>
+                    <div class="col-lg-8">
+                      <strong class="text-info">{{i.pday2_desc}}</strong>  
+                      <hr>                 
+                  </div>  
+                  <div class="col-lg-4">
+                      <h6 class="card-title font-weight-bold"><i class="fa fa-calendar mr-2 text-danger"></i> Day 3 :  {{i.pday3 | title}}</h6>
+                    </div>
+                    <div class="col-lg-8">
+                      <strong class="text-info">{{i.pday3_desc}}</strong>  
+                      <hr>                 
+                  </div>  
+                  <div class="col-lg-4">
+                      <h6 class="card-title font-weight-bold"><i class="fa fa-calendar mr-2 text-danger"></i> Day 4 :  {{i.pday4 | title}}</h6>
+                    </div>
+                    <div class="col-lg-8">
+                      <strong class="text-info">{{i.pday4_desc}}</strong>       
+                      <hr>            
+                  </div>  
+                  <div class="col-lg-4">
+                      <h6 class="card-title font-weight-bold"><i class="fa fa-calendar mr-2 text-danger"></i> Day 5 :  {{i.pday5 | title}}</h6>
+                    </div>
+                    <div class="col-lg-8">
+                      <strong class="text-info">{{i.pday5_desc}}</strong> 
+                      <hr>                  
+                  </div>  
+                  <div class="col-lg-4">
+                      <h6 class="card-title font-weight-bold"><i class="fa fa-calendar mr-2 text-danger"></i> Day 6 :  {{i.pday6 | title}}</h6>
+                    </div>
+                    <div class="col-lg-8">
+                      <strong class="text-info">{{i.pday6_desc}}</strong>   
+                      <hr>                
+                  </div>  
+
+                </div>
+                {% endfor %} 
+              </div>                       
+            </div>            
+          </div>
+          </div>
+</div>
+
+
+<script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+{% endblock %}
+</body>
+</html>
+
+ 
+
+
+
+ 

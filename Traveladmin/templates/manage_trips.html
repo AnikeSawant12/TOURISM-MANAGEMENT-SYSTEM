@@ -1,0 +1,120 @@
+{% extends 'header.html' %}
+{% block body %}
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+
+	<link href="{% static 'vendor/datatables/dataTables.bootstrap4.min.css' %}" rel="stylesheet">
+	<link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet">
+  
+</head>
+<body>
+<!-- Begin Page Content -->
+        <div class="container-fluid mt-4">
+          <div class="page-header">      
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Dashboard</a></li>
+            <li class="breadcrumb-item active">Manage Trips</li>
+          </ol>
+        </div>
+          <div class="card shadow mb-4">
+            <div class="card-header">
+            	<a href="{% url 'createTrip' %}" class="btn btn-sm btn-primary float-right ml-2">Add New Trip</a>
+
+              <span class="font-weight-bold text-primary">Show Trips</span>
+
+              <form method="get" action="{% url 'manageUpcomingtrips' %}" class="d-none d-sm-inline-block form-inline mr-2 ml-md-2 my-2 my-md-0  navbar-search ml-2" >
+                {% csrf_token %}
+              <div class="input-group">
+                <input type="text" class="form-control border-0 small" placeholder="Search for..." name="q" required>
+                  <div class="input-group-append">
+                    <button class="btn btn-primary btn-sm" type="submit"><i class="fas fa-search fa-sm"></i></button>
+                </div>
+              </div>
+            </form>
+            
+            </div>
+             
+            <div class="card-body">
+              {% if messages %}
+                {% for message in messages %}
+                  <div class="alert alert-dismissible alert-success">
+                    <button type="button" class="close" data-dismiss="alert">
+                    ×
+                    </button>
+                    <strong><i class="fa fa-check-circle mr-2"></i>{{message}}<strong>
+                  </div>
+               {% endfor %}
+              {% endif %}
+              <div class="table-responsive">
+                <table class="table table-bordered"  width="100%" cellspacing="0">
+                  <thead>
+                    <tr class="text-center">
+                        <th scope="col">Sr No</th>                 
+                        <th scope="col">Location</th>
+                        <th scope="col">Days</th>
+                        <th scope="col">Nights</th>
+                        <th scope="col">Package</th>
+                        <th scope="col">Image</th>
+                        <th scope="col">View Details</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                    
+                    {% for i in object_list %} 
+                    </tr>                     
+                    <tr class="text-center">
+                      <td>{{forloop.counter}}</td>
+                      <td>{{i.plocation | upper }}</td>
+                      <td>{{i.pdays}}</td> 
+                      <td>{{i.pnights}}</td> 
+                      <td>Rs. {{i.pprice}}</td>
+                      <td class="text-success"> <img src="{{i.plocationimg.url}}" alt="barcode" width="150" height="50"></td> 
+                      <td><a href="{% url 'tripDetails' i.slug %}" class="nav-link font-weight-bold">view</a></td> 
+                      <td>
+                        <a href="{% url 'editTrip' i.slug %}"><i class="fa fa-edit text-primary"></i></a>
+
+                        <a href="{% url 'deleteTrip' i.slug %}"><i class="fa fa-trash text-danger confirm-delete" onclick="return confirm('Are you really want to Delete This ? Trip {{i.location | title}}')"></i></a>
+                      </td>                      
+                    </tr> 
+                    {% endfor %}                 
+                   
+                  </tbody>
+                </table>  
+                <nav aria-label="Page navigation example">
+                  {% if is_paginated %}
+                  <ul class="pagination">
+                    {% if page_obj.has_previous %}
+                    <li class="page-item"><a class="page-link" href="?page={{page_obj.previous_page_number}}">Previous</a></li>
+                    {% endif %}
+
+                    <li class="page-item active"><span class="page-link">{{page_obj.number}}</span></li>
+                    
+                    {% if page_obj.has_next %}
+                    <li class="page-item"><a class="page-link" href="?page={{page_obj.next_page_number}}">Next</a></li>
+                    {% endif %}
+                  </ul>
+                  {% endif %}
+                </nav>                                
+              </div>
+            </div>
+          </div>
+</div>
+
+
+<script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+{% endblock %}
+</body>
+</html>
+
+ 
+
+
+
+ 
